@@ -20,7 +20,7 @@ public class RestfulapiApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
 				.allowedMethods("*")
-				.allowedOrigins("http://localhost:3000"); 
+				.allowedOrigins("https://planet-preserve.web.app", "https://planet-preserve.firebaseapp.com"); 
 			};
 		};
 	}
