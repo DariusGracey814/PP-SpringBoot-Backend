@@ -1,23 +1,34 @@
 package com.planetpreserve.restfulapi.SpringMVC.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity(name = "users")
-@NamedQuery(name="fetchAll", query = "SELECT u FROM users u")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="user_id")
 	private int id;
+	
 	private String username;
+	
 	private String email;
+	
 	private String password;
 	
-	public User() {
+	protected User() {
 		
 	}
 
@@ -28,7 +39,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -61,4 +72,13 @@ public class User {
 		this.password = password;
 	}	
 	
+	// One to many relationship with contributions
+	@OneToMany(mappedBy="user")
+	@JsonIgnore
+	private List<Contribution> contributions;
+	
+	@JsonManagedReference
+	public List<Contribution> getContributions() {
+		return contributions;
+	}
 }

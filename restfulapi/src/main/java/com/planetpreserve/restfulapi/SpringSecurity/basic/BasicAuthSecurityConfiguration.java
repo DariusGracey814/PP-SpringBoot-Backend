@@ -1,20 +1,15 @@
 package com.planetpreserve.restfulapi.SpringSecurity.basic;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 public class BasicAuthSecurityConfiguration {
@@ -29,6 +24,18 @@ public class BasicAuthSecurityConfiguration {
 				.requestMatchers("/planet-preserve/login-check=authentication/{username}/{password}")
 				.permitAll()
 				.requestMatchers("/planet-preserve/signup")
+				.permitAll()
+				.requestMatchers("/planet-preserve/get-user/{id}")
+				.permitAll()
+				.requestMatchers("/planet/users/{id}")
+				.permitAll()
+				.requestMatchers("/planet-preserve/{username}/{authenticated}/add-contribution")
+				.permitAll()
+				.requestMatchers("/planet-preserve/{username}/{authenticated}/get-contribution")
+				.permitAll()
+				.requestMatchers("/planet-preserve/all-contributions")
+				.permitAll()
+				.requestMatchers("/planet-preserve/delete-contribution/{contributionId}")
 				.permitAll()
 				.anyRequest()
 				.authenticated());

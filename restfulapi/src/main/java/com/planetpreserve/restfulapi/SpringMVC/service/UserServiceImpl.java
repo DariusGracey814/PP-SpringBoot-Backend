@@ -8,7 +8,10 @@ import com.planetpreserve.restfulapi.SpringMVC.dao.UserDao;
 import com.planetpreserve.restfulapi.SpringMVC.entity.User;
 import com.planetpreserve.restfulapi.exception.UserNotFoundException;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
@@ -48,8 +51,27 @@ public class UserServiceImpl implements UserService {
 		
 		return deletedUser;
 	}
-	
-	
+
+	public User getById(int id) {
+		User foundUser = dao.getById(id);
+		
+		if (foundUser == null) {
+			throw new UserNotFoundException("No user found with the id: " + id);
+		}
+		
+		return foundUser;
+	}
+
+	public User getByUsername(String username) {
+		
+		User foundUser = dao.getByUsername(username);
+		
+		if (foundUser == null) {
+			throw new UserNotFoundException("No user found with the username: " + username);
+		}
+		
+		return foundUser;
+	}
 	
 	
 }

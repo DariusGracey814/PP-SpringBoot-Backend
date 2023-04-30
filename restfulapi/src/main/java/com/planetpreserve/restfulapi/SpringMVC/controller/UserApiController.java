@@ -17,12 +17,18 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
+	
 	// Find user attempting to login make sure it is a authenticated user
 	@GetMapping(path = "/planet-preserve/login-check=authentication/{username}/{password}")
 	public Boolean getUser(@PathVariable String username, @PathVariable String password) {
 		return userService.retrieveUser(username, password);
 	}
 	
+	@GetMapping(path = "/planet-preserve/get-user/{id}")
+	public User getUserById(@PathVariable int id) {
+		return userService.getById(id);
+	}
+
 	// Add registering user with hashed password
 	@PostMapping(path = "/planet-preserve/signup")
 	public User addUser(@RequestBody User user) {
